@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Spark</string>
+    <string name="title_all_deals">All Deals</string>
+    <string name="title_my_deals">My Deals</string>
+    <string name="title_edit_my_deals">Edit My Deals</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="retailers">
+        <item>Ace Hardware</item>
+        <item>American Eagle</item>
+        <item>Vitacost</item>
+    </string-array>
+</resources>
