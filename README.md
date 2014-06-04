@@ -2,7 +2,7 @@
 ![Spark icon](https://raw.githubusercontent.com/DanielClayton/Spark/master/Spark/src/main/res/drawable-xxxhdpi/ic_launcher.png)
 
 ## Overview
-Shopping Deals Aggregator
+Retail Shopping Deals Aggregator
 
 <br />
 <br />

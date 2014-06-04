@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -29,6 +30,16 @@ public class AllDealsFragment extends ListFragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View vAllDeals = inflater.inflate(R.layout.list_fragment, container, false);
+        TextView vTitle = (TextView) vAllDeals.findViewById(R.id.title);
+        vTitle.setText("Retailers");
+
+        return vAllDeals;
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.retailers));
@@ -37,7 +48,7 @@ public class AllDealsFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        String url = MainActivity.getRetailerUrl(l.getItemAtPosition(position).toString());
+        String url = MainActivity.getRetailerUrl(String.valueOf(l.getItemAtPosition(position)));
 
         Projectile.draw(getActivity())
                 .aim(url)
@@ -63,12 +74,6 @@ public class AllDealsFragment extends ListFragment {
 
                     }
                 });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list_fragment, container, false);
     }
 
     public AllDealsFragment() {
