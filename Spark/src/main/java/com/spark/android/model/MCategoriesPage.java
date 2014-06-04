@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Created by danielclayton on 6/3/14.
  */
-public class MRetailerHomePage implements Serializable {
+public class MCategoriesPage implements Serializable {
     private ArrayList<MCategory> categories;
 
     public ArrayList<MCategory> getCategories() {

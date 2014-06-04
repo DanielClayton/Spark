@@ -10,12 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.spark.android.R;
-import com.spark.android.fragment.AllDealsFragment;
+import com.spark.android.fragment.AllDealsLandingFragment;
 import com.spark.android.fragment.NavigationDrawerFragment;
-import com.spark.android.fragment.PlaceholderFragment;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    public static final String ARG_PAGE_DATA = "page_data";
+    public static final String ARG_PAGE_TYPE = "page_type";
+    public static final String ARG_RETAILER_NAME = "retailer_name";
+    public static final String ARG_CATEGORIES_PAGE = "retailer_home_page";
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -45,18 +48,18 @@ public class MainActivity extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment;
-        switch(position) {
+        switch (position) {
             case 0:
-                fragment = AllDealsFragment.newInstance();
+                fragment = AllDealsLandingFragment.newInstance();
                 break;
             case 1:
-                fragment = PlaceholderFragment.newInstance(position + 1);
+                fragment = AllDealsLandingFragment.newInstance();
                 break;
             case 2:
-                fragment = PlaceholderFragment.newInstance(position + 1);
+                fragment = AllDealsLandingFragment.newInstance();
                 break;
             default:
-                fragment = PlaceholderFragment.newInstance(position + 1);
+                fragment = AllDealsLandingFragment.newInstance();
                 break;
         }
 
@@ -116,26 +119,5 @@ public class MainActivity extends Activity
         int id = item.getItemId();
 
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    public static String getRetailerUrl(String retailer) {
-        String url;
-
-        switch(retailer) {
-            case "Ace Hardware":
-                url = "https://acehardwareapi.uat.bbhosted.com";
-                break;
-            case "American Eagle":
-                url = "https://aeapi.uat.bbhosted.com";
-                break;
-            case "Vitacost":
-                url = "https://vitacostapi.uat.bbhosted.com";
-                break;
-            default:
-                url = "https://vitacostapi.uat.bbhosted.com";
-                break;
-        }
-
-        return url;
     }
 }

@@ -15,8 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.spark.android.R;
-import com.spark.android.activity.MainActivity;
-import com.spark.android.model.MRetailerHomePage;
+import com.spark.android.model.MCategoriesPage;
+import com.spark.android.util.UrlFormatter;
 
 import org.nicktate.projectile.JsonElementListener;
 import org.nicktate.projectile.Projectile;
@@ -24,9 +24,9 @@ import org.nicktate.projectile.Projectile;
 /**
  * Created by danielclayton on 6/3/14.
  */
-public class AllDealsFragment extends ListFragment {
-    public static AllDealsFragment newInstance() {
-        return new AllDealsFragment();
+public class AllDealsLandingFragment extends ListFragment {
+    public static AllDealsLandingFragment newInstance() {
+        return new AllDealsLandingFragment();
     }
 
     @Override
@@ -47,11 +47,11 @@ public class AllDealsFragment extends ListFragment {
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        String url = MainActivity.getRetailerUrl(String.valueOf(l.getItemAtPosition(position)));
+    public void onListItemClick(ListView l, View v, final int position, long id) {
+        final String baseUrl = UrlFormatter.getRetailerApiUrl(String.valueOf(getListAdapter().getItem(position)));
 
         Projectile.draw(getActivity())
-                .aim(url)
+                .aim(baseUrl)
                 .retryCount(1)
                 .fire(new JsonElementListener() {
                     @Override
@@ -59,23 +59,25 @@ public class AllDealsFragment extends ListFragment {
                         if (jsonElement.isJsonObject()) {
                             Gson gson = new Gson();
                             JsonObject responseObject = jsonElement.getAsJsonObject();
-                            MRetailerHomePage retailerHomePage = gson.fromJson(responseObject, MRetailerHomePage.class);
+                            MCategoriesPage categoryPage = gson.fromJson(responseObject, MCategoriesPage.class);
 
-                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                            ft.replace(R.id.container, CategoriesFragment.newInstance(retailerHomePage), "allDealsToCategories");
-                            ft.addToBackStack("allDealsToCategories");
-                            ft.commitAllowingStateLoss();
-
+                            try {
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.replace(R.id.container, CategoriesFragment.newInstance(categoryPage, String.valueOf(getListAdapter().getItem(position))), "allDealsToCategories");
+                                ft.addToBackStack("allDealsToCategories");
+                                ft.commitAllowingStateLoss();
+                            } catch (NullPointerException e) {
+                                // Do nothing right now
+                            }
                         }
                     }
 
                     @Override
                     public void onError(VolleyError volleyError) {
-
                     }
                 });
     }
 
-    public AllDealsFragment() {
+    public AllDealsLandingFragment() {
     }
 }

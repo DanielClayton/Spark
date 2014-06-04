@@ -1,11 +1,12 @@
 package com.spark.android.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by danielclayton on 6/3/14.
  */
-public class MDeal {
+public class MDeal implements Serializable {
     private String image;
     private ArrayList<String> bullets;
     private String href;

@@ -1,20 +1,21 @@
 package com.spark.android.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by danielclayton on 6/3/14.
  */
-public class MCategory implements Serializable {
-    private String href;
+public class MProduct implements Serializable {
     private String title;
+    private String id;
 
-    public String getHref() {
-        return href;
+    public String getProductId() {
+        return id;
     }
 
-    public void setHref(String href) {
-        this.href = href;
+    public void setProductId(String productId) {
+        this.id = productId;
     }
 
     public String getTitle() {
