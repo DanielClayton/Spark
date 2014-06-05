@@ -1,7 +1,5 @@
 package com.spark.android.model;
 
-import com.google.gson.JsonObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.spark.android.R;
 import com.spark.android.fragment.AllDealsLandingFragment;
+import com.spark.android.fragment.DealsWebViewFragment;
 import com.spark.android.fragment.NavigationDrawerFragment;
 
 public class MainActivity extends Activity
@@ -19,6 +20,7 @@ public class MainActivity extends Activity
     public static final String ARG_PAGE_TYPE = "page_type";
     public static final String ARG_RETAILER_NAME = "retailer_name";
     public static final String ARG_CATEGORIES_PAGE = "retailer_home_page";
+    public static final String ARG_WEB_VIEW_URL = "web_view_url";
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -47,7 +49,7 @@ public class MainActivity extends Activity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        Fragment fragment;
+        Fragment fragment = new Fragment();
         switch (position) {
             case 0:
                 fragment = AllDealsLandingFragment.newInstance();
@@ -56,9 +58,6 @@ public class MainActivity extends Activity
                 fragment = AllDealsLandingFragment.newInstance();
                 break;
             case 2:
-                fragment = AllDealsLandingFragment.newInstance();
-                break;
-            default:
                 fragment = AllDealsLandingFragment.newInstance();
                 break;
         }
@@ -119,5 +118,15 @@ public class MainActivity extends Activity
         int id = item.getItemId();
 
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().findFragmentByTag("webView") != null
+                && ((DealsWebViewFragment) getFragmentManager().findFragmentByTag("webView")).getWebView().canGoBack()) {
+            ((DealsWebViewFragment) getFragmentManager().findFragmentByTag("webView")).getWebView().goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

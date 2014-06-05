@@ -1,9 +1,8 @@
 package com.spark.android.fragment;
 
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,6 @@ import java.util.List;
  * Created by danielclayton on 6/3/14.
  */
 public class DealsFragment extends ListFragment {
-
     public static DealsFragment newInstance(MDealsPage dealsPage, String pageType, String retailerName) {
         DealsFragment fragment = new DealsFragment();
         Bundle args = new Bundle();
@@ -64,7 +62,7 @@ public class DealsFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         ArrayAdapter<?> adapter;
 
-        switch(getArguments().getString(MainActivity.ARG_PAGE_TYPE)) {
+        switch (getArguments().getString(MainActivity.ARG_PAGE_TYPE)) {
             case "deals":
                 adapter = new DealsAdapter(getActivity(), R.layout.deal_item, ((MDealsPage) getArguments().getSerializable(MainActivity.ARG_PAGE_DATA)).getDeals());
                 setListAdapter(adapter);
@@ -145,22 +143,24 @@ public class DealsFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        String href = "";
+        String url = "";
         String productId = "";
-        Intent i = new Intent(Intent.ACTION_VIEW);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-        switch(getArguments().getString(MainActivity.ARG_PAGE_TYPE)) {
+        switch (getArguments().getString(MainActivity.ARG_PAGE_TYPE)) {
             case "deals":
-                href = ((MDeal) getListAdapter().getItem(position)).getHref();
-                i.setData(Uri.parse(UrlFormatter.formatDealsPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), href)));
+                url = ((MDeal) getListAdapter().getItem(position)).getHref();
+                ft.replace(R.id.container, DealsWebViewFragment.newInstance(getArguments().getString(MainActivity.ARG_RETAILER_NAME), UrlFormatter.formatDealsPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), url)), "webView");
+                ft.addToBackStack("dealsToDealsWebView");
+                ft.commitAllowingStateLoss();
                 break;
             case "products":
                 productId = ((MProduct) getListAdapter().getItem(position)).getProductId();
-                i.setData(Uri.parse(UrlFormatter.formatProductPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), productId)));
+                ft.replace(R.id.container, DealsWebViewFragment.newInstance(getArguments().getString(MainActivity.ARG_RETAILER_NAME), UrlFormatter.formatProductPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), productId)), "webView");
+                ft.addToBackStack("productsToDealsWebView");
+                ft.commitAllowingStateLoss();
                 break;
         }
-
-        startActivity(i);
     }
 
     public DealsFragment() {

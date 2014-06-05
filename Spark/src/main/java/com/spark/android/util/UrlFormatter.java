@@ -14,11 +14,44 @@ public class UrlFormatter {
             case "American Eagle":
                 url = "https://aeapi.uat.bbhosted.com";
                 break;
+            case "Eastern Mountain Sports":
+                url = "https://emsapi.uat.bbhosted.com";
+                break;
+            case "Sports Authority":
+                url = "https://sportsauthorityapi.uat.bbhosted.com";
+                break;
+            case "Toys \"R\" Us":
+                url = "https://toysrus-demo-api.herokuapp.com";
+                break;
             case "Vitacost":
                 url = "https://vitacostapi.uat.bbhosted.com";
                 break;
-            default:
-                url = "https://vitacostapi.uat.bbhosted.com";
+        }
+
+        return url;
+    }
+
+    public static String getRetailerBaseUrl(String retailerName) {
+        String url = "";
+
+        switch (retailerName) {
+            case "Ace Hardware":
+                url = "acehardware.com";
+                break;
+            case "American Eagle":
+                url = "ae.com";
+                break;
+            case "Eastern Mountain Sports":
+                url = "ems.com";
+                break;
+            case "Sports Authority":
+                url = "sportsauthority.com";
+                break;
+            case "Toys \"R\" Us":
+                url = "toysrus.com";
+                break;
+            case "Vitacost":
+                url = "vitacost.com";
                 break;
         }
 
@@ -33,17 +66,8 @@ public class UrlFormatter {
         }
 
         switch (retailerName) {
-            case "Ace Hardware":
-                url = "https://acehardwareapi.uat.bbhosted.com";
-                break;
-            case "American Eagle":
-                url = "https://aeapi.uat.bbhosted.com";
-                break;
             case "Vitacost":
                 url = "http://m.vitacost.com" + href;
-                break;
-            default:
-                url = "https://vitacostapi.uat.bbhosted.com";
                 break;
         }
 
@@ -67,11 +91,17 @@ public class UrlFormatter {
                 }
 
                 break;
-            case "Vitacost":
-                url = "https://vitacostapi.uat.bbhosted.com";
+            case "Eastern Mountain Sports":
+                url = "http://m.ems.com/products/" + productId;
                 break;
-            default:
-                url = "https://vitacostapi.uat.bbhosted.com";
+            case "Sports Authority":
+                url = "http://m.sportsauthority.com/products/" + productId;
+                break;
+            case "Toys \"R\" Us":
+                url = "http://m.toysrus.com/product/index.jsp?productId=" + productId;
+                break;
+            case "Vitacost":
+                url = "http://m.vitacost.com/products/" + productId;
                 break;
         }
 

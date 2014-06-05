@@ -3,6 +3,9 @@
     <string-array name="retailers">
         <item>Ace Hardware</item>
         <item>American Eagle</item>
+        <item>Eastern Mountain Sports</item>
+        <item>Sports Authority</item>
+        <item>Toys \"R\" Us</item>
         <item>Vitacost</item>
     </string-array>
 </resources>
