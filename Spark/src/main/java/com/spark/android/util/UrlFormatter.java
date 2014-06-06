@@ -36,22 +36,22 @@ public class UrlFormatter {
 
         switch (retailerName) {
             case "Ace Hardware":
-                url = "acehardware.com";
+                url = "acehardware";
                 break;
             case "American Eagle":
-                url = "ae.com";
+                url = "ae";
                 break;
             case "Eastern Mountain Sports":
-                url = "ems.com";
+                url = "ems";
                 break;
             case "Sports Authority":
-                url = "sportsauthority.com";
+                url = "sportsauthority";
                 break;
             case "Toys \"R\" Us":
-                url = "toysrus.com";
+                url = "toysrus";
                 break;
             case "Vitacost":
-                url = "vitacost.com";
+                url = "vitacost";
                 break;
         }
 
@@ -59,19 +59,17 @@ public class UrlFormatter {
     }
 
     public static String formatDealsPageUrl(String retailerName, String href) {
-        String url = "";
-
         if (href.contains("http") || href.contains("www.")) {
             return href;
         }
 
         switch (retailerName) {
             case "Vitacost":
-                url = "http://m.vitacost.com" + href;
+                href = "http://m.vitacost.com" + href;
                 break;
         }
 
-        return url;
+        return href;
     }
 
     public static String formatProductPageUrl(String retailerName, String productId) {
@@ -106,5 +104,19 @@ public class UrlFormatter {
         }
 
         return url;
+    }
+
+    public static String formatProductImageUrl(String retailerName, String href) {
+        if (href.contains("http") || href.contains("www.")) {
+            return href;
+        }
+
+        switch (retailerName) {
+            case "Toys \"R\" Us":
+                href = "http://m.toysrus.com" + href;
+                break;
+        }
+
+        return href;
     }
 }

@@ -55,7 +55,7 @@ public class CategoriesFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayAdapter<MCategory> adapter = new CategoryAdapter(getActivity(), android.R.layout.simple_list_item_1, ((MCategoriesPage) getArguments().getSerializable(MainActivity.ARG_CATEGORIES_PAGE)).getCategories());
+        ArrayAdapter<MCategory> adapter = new CategoryAdapter(getActivity(), R.layout.category_item, ((MCategoriesPage) getArguments().getSerializable(MainActivity.ARG_CATEGORIES_PAGE)).getCategories());
         setListAdapter(adapter);
     }
 
@@ -80,7 +80,7 @@ public class CategoriesFragment extends ListFragment {
                 convertView = inflater.inflate(mResource, parent, false);
 
                 viewHolderItem = new ViewHolderItem();
-                viewHolderItem.rowTitle = (TextView) convertView.findViewById(android.R.id.text1);
+                viewHolderItem.rowTitle = (TextView) convertView.findViewById(R.id.category_title);
 
                 convertView.setTag(viewHolderItem);
             } else {

@@ -3,6 +3,7 @@ package com.spark.android.fragment;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,8 +48,55 @@ public class AllDealsLandingFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.retailers));
+        ArrayAdapter<String> adapter = new RetailersAdapter(getActivity(), R.layout.category_item, getResources().getStringArray(R.array.retailers));
         setListAdapter(adapter);
+    }
+
+    private class RetailersAdapter extends ArrayAdapter<String> {
+        private final Context mContext;
+        private final int mResource;
+        private final String[] mRetailers;
+
+        public RetailersAdapter(Context context, int resource, String[] retailers) {
+            super(context, resource, retailers);
+            this.mContext = context;
+            this.mResource = resource;
+            this.mRetailers = retailers;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolderItem viewHolderItem;
+
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(mResource, parent, false);
+
+                viewHolderItem = new ViewHolderItem();
+                viewHolderItem.rowTitle = (TextView) convertView.findViewById(R.id.category_title);
+
+                convertView.setTag(viewHolderItem);
+            } else {
+                viewHolderItem = (ViewHolderItem) convertView.getTag();
+            }
+
+            String rowTitle = null;
+            if (mRetailers != null
+                    && mRetailers[position] != null) {
+                rowTitle = mRetailers[position];
+            }
+
+            if (rowTitle != null) {
+                viewHolderItem.rowTitle.setText(rowTitle);
+            }
+
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return mRetailers.length;
+        }
     }
 
     @Override
@@ -106,6 +154,10 @@ public class AllDealsLandingFragment extends ListFragment {
                         }
                     }
                 });
+    }
+
+    static class ViewHolderItem {
+        TextView rowTitle;
     }
 
     public AllDealsLandingFragment() {

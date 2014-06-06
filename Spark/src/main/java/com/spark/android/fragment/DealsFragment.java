@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.spark.android.model.MDealsPage;
 import com.spark.android.model.MProduct;
 import com.spark.android.model.MProductsPage;
 import com.spark.android.util.UrlFormatter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -94,28 +96,41 @@ public class DealsFragment extends ListFragment {
                 convertView = inflater.inflate(mResource, parent, false);
 
                 dealsViewHolderItem = new DealsViewHolderItem();
-                dealsViewHolderItem.dealBullets = (TextView) convertView.findViewById(R.id.dealBullets);
+                dealsViewHolderItem.dealImage = (ImageView) convertView.findViewById(R.id.deal_image);
+                dealsViewHolderItem.dealBullets = (TextView) convertView.findViewById(R.id.deal_bullets);
 
                 convertView.setTag(dealsViewHolderItem);
             } else {
                 dealsViewHolderItem = (DealsViewHolderItem) convertView.getTag();
             }
 
-            String bullets = null;
+            String dealImageUrl;
+            String dealBullets = "";
             if (mDeals != null
-                    && mDeals.get(position) != null
-                    && mDeals.get(position).getBullets() != null) {
-                for (int i = 0; i < mDeals.get(position).getBullets().size(); i++) {
-                    if (i < mDeals.get(position).getBullets().size() - 1) {
-                        bullets += mDeals.get(position).getBullets().get(i) + "\r\n";
-                    } else {
-                        bullets += mDeals.get(position).getBullets().get(i);
+                    && mDeals.get(position) != null) {
+                if (mDeals.get(position).getImage() != null) {
+                    dealImageUrl = mDeals.get(position).getImage();
+
+                    if (dealImageUrl != null) {
+                        Picasso.with(getActivity())
+                                .load(dealImageUrl)
+                                .into(dealsViewHolderItem.dealImage);
                     }
                 }
-            }
 
-            if (bullets != null) {
-                dealsViewHolderItem.dealBullets.setText(bullets);
+                if (mDeals.get(position).getBullets() != null) {
+                    for (int i = 0; i < mDeals.get(position).getBullets().size(); i++) {
+                        if (i < mDeals.get(position).getBullets().size() - 1) {
+                            dealBullets += "• " + mDeals.get(position).getBullets().get(i) + "\r\n";
+                        } else {
+                            dealBullets += "• " + mDeals.get(position).getBullets().get(i);
+                        }
+                    }
+
+                    if (!dealBullets.equals("")) {
+                        dealsViewHolderItem.dealBullets.setText(dealBullets);
+                    }
+                }
             }
 
             return convertView;
@@ -148,6 +163,7 @@ public class DealsFragment extends ListFragment {
                 convertView = inflater.inflate(mResource, parent, false);
 
                 productsViewHolderItem = new ProductsViewHolderItem();
+                productsViewHolderItem.productImage = (ImageView) convertView.findViewById(R.id.product_image);
                 productsViewHolderItem.productName = (TextView) convertView.findViewById(R.id.product_name);
 
                 convertView.setTag(productsViewHolderItem);
@@ -155,13 +171,29 @@ public class DealsFragment extends ListFragment {
                 productsViewHolderItem = (ProductsViewHolderItem) convertView.getTag();
             }
 
-            String productName = null;
-            if (mProducts != null && mProducts.get(position) != null && mProducts.get(position).getTitle() != null) {
-                productName = mProducts.get(position).getTitle();
-            }
+            String productImageUrl;
+            String productName;
+            if (mProducts != null
+                    && mProducts.get(position) != null) {
+                if (mProducts.get(position).getImages() != null
+                        && mProducts.get(position).getImages().get(0) != null
+                        && mProducts.get(position).getImages().get(0).getThumb() != null) {
+                    productImageUrl = mProducts.get(position).getImages().get(0).getThumb();
 
-            if (productName != null) {
-                productsViewHolderItem.productName.setText(productName);
+                    if (productImageUrl != null) {
+                        Picasso.with(getActivity())
+                                .load(UrlFormatter.formatProductImageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), productImageUrl))
+                                .into(productsViewHolderItem.productImage);
+                    }
+                }
+
+                if (mProducts.get(position).getTitle() != null) {
+                    productName = mProducts.get(position).getTitle();
+
+                    if (productName != null) {
+                        productsViewHolderItem.productName.setText(productName);
+                    }
+                }
             }
 
             return convertView;
@@ -196,10 +228,12 @@ public class DealsFragment extends ListFragment {
     }
 
     static class DealsViewHolderItem {
+        ImageView dealImage;
         TextView dealBullets;
     }
 
     static class ProductsViewHolderItem {
+        ImageView productImage;
         TextView productName;
     }
 

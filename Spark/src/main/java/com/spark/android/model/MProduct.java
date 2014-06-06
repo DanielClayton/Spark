@@ -1,6 +1,7 @@
 package com.spark.android.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by danielclayton on 6/3/14.
@@ -8,6 +9,15 @@ import java.io.Serializable;
 public class MProduct implements Serializable {
     private String title;
     private String id;
+    private List<MImage> images;
+
+    public List<MImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<MImage> images) {
+        this.images = images;
+    }
 
     public String getProductId() {
         return id;
