@@ -48,7 +48,7 @@ public class CategoriesFragment extends ListFragment {
         View vCategories = inflater.inflate(R.layout.list_fragment, container, false);
         if (vCategories != null) {
             TextView vTitle = (TextView) vCategories.findViewById(R.id.title);
-            vTitle.setText("Categories");
+            vTitle.setText(getString(R.string.categories));
         }
 
         return vCategories;
@@ -58,7 +58,9 @@ public class CategoriesFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayAdapter<MCategory> adapter = new CategoryAdapter(getActivity(), R.layout.category_item, ((MCategoriesPage) getArguments().getSerializable(MainActivity.ARG_CATEGORIES_PAGE)).getCategories());
+        ArrayAdapter<MCategory> adapter = new CategoryAdapter(getActivity(),
+                R.layout.category_item,
+                ((MCategoriesPage) getArguments().getSerializable(MainActivity.ARG_CATEGORIES_PAGE)).getCategories());
         setListAdapter(adapter);
     }
 
@@ -141,19 +143,30 @@ public class CategoriesFragment extends ListFragment {
                             if (responseObject.has("categories") && responseObject.get("categories").isJsonArray()) {
                                 MCategoriesPage categoryPage = MainActivity.getGsonInstance().fromJson(responseObject, MCategoriesPage.class);
 
-                                ft.replace(R.id.container, CategoriesFragment.newInstance(categoryPage, getArguments().getString(MainActivity.ARG_RETAILER_NAME)), "categoriesToCategories");
+                                ft.replace(R.id.container, CategoriesFragment.newInstance(categoryPage,
+                                                getArguments().getString(MainActivity.ARG_RETAILER_NAME)),
+                                        "categoriesToCategories"
+                                );
                                 ft.addToBackStack("categoriesToCategories");
                                 ft.commitAllowingStateLoss();
                             } else if (responseObject.has("deals") && responseObject.get("deals").isJsonArray()) {
                                 MDealsPage dealsPage = MainActivity.getGsonInstance().fromJson(responseObject, MDealsPage.class);
 
-                                ft.replace(R.id.container, DealsFragment.newInstance(dealsPage, "deals", getArguments().getString(MainActivity.ARG_RETAILER_NAME)), "categoriesToDeals");
+                                ft.replace(R.id.container, DealsFragment.newInstance(dealsPage,
+                                                "deals",
+                                                getArguments().getString(MainActivity.ARG_RETAILER_NAME)),
+                                        "categoriesToDeals"
+                                );
                                 ft.addToBackStack("categoriesToDeals");
                                 ft.commitAllowingStateLoss();
                             } else if (responseObject.has("products") && responseObject.get("products").isJsonArray()) {
                                 MProductsPage productsPage = MainActivity.getGsonInstance().fromJson(responseObject, MProductsPage.class);
 
-                                ft.replace(R.id.container, DealsFragment.newInstance(productsPage, "products", getArguments().getString(MainActivity.ARG_RETAILER_NAME)), "categoriesToProducts");
+                                ft.replace(R.id.container, DealsFragment.newInstance(productsPage,
+                                                "products",
+                                                getArguments().getString(MainActivity.ARG_RETAILER_NAME)),
+                                        "categoriesToProducts"
+                                );
                                 ft.addToBackStack("categoriesToProducts");
                                 ft.commitAllowingStateLoss();
                             }

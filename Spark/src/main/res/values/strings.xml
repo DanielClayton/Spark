@@ -12,5 +12,12 @@
     <string name="progress_dialog_default_message">Loading&#8230;</string>
     <string name="progress_dialog_loading_categories_message">Loading categories&#8230;</string>
     <string name="empty_category_message">There are no deals in this category.</string>
+    <string name="empty_my_deals_message">Press the + button to add retailers to your list.</string>
+    <string name="retailers">Retailers</string>
+    <string name="categories">Categories</string>
+    <string name="add_retailer">Add Retailer</string>
+    <string name="remove_retailer">Remove Retailer</string>
+    <string name="remove">Remove</string>
+    <string name="already_in_list">is already in your list.</string>
 
 </resources>

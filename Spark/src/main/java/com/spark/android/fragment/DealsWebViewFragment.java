@@ -73,7 +73,7 @@ public class DealsWebViewFragment extends WebViewFragment {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (!url.contains(UrlFormatter.getRetailerBaseUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME)))) {
+                if (!url.contains(UrlFormatter.getRetailerBaseName(getArguments().getString(MainActivity.ARG_RETAILER_NAME)))) {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);

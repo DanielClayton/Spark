@@ -55,7 +55,7 @@ public class DealsFragment extends ListFragment {
         View vCategories = inflater.inflate(R.layout.list_fragment, container, false);
         if (vCategories != null) {
             TextView vTitle = (TextView) vCategories.findViewById(R.id.title);
-            vTitle.setText("Deals");
+            vTitle.setText(getString(R.string.title_all_deals));
         }
 
         return vCategories;
@@ -69,11 +69,15 @@ public class DealsFragment extends ListFragment {
 
         switch (getArguments().getString(MainActivity.ARG_PAGE_TYPE)) {
             case "deals":
-                adapter = new DealsAdapter(getActivity(), R.layout.deal_item, ((MDealsPage) getArguments().getSerializable(MainActivity.ARG_PAGE_DATA)).getDeals());
+                adapter = new DealsAdapter(getActivity(),
+                        R.layout.deal_item,
+                        ((MDealsPage) getArguments().getSerializable(MainActivity.ARG_PAGE_DATA)).getDeals());
                 setListAdapter(adapter);
                 break;
             case "products":
-                adapter = new ProductsAdapter(getActivity(), R.layout.product_item, ((MProductsPage) getArguments().getSerializable(MainActivity.ARG_PAGE_DATA)).getProducts());
+                adapter = new ProductsAdapter(getActivity(),
+                        R.layout.product_item,
+                        ((MProductsPage) getArguments().getSerializable(MainActivity.ARG_PAGE_DATA)).getProducts());
                 setListAdapter(adapter);
         }
     }
@@ -222,13 +226,15 @@ public class DealsFragment extends ListFragment {
         switch (getArguments().getString(MainActivity.ARG_PAGE_TYPE)) {
             case "deals":
                 url = ((MDeal) getListAdapter().getItem(position)).getHref();
-                ft.replace(R.id.container, DealsWebViewFragment.newInstance(getArguments().getString(MainActivity.ARG_RETAILER_NAME), UrlFormatter.formatDealsPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), url)), "webView");
+                ft.replace(R.id.container, DealsWebViewFragment.newInstance(getArguments().getString(MainActivity.ARG_RETAILER_NAME),
+                        UrlFormatter.formatDealsPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), url)), "webView");
                 ft.addToBackStack("dealsToDealsWebView");
                 ft.commitAllowingStateLoss();
                 break;
             case "products":
                 productId = ((MProduct) getListAdapter().getItem(position)).getProductId();
-                ft.replace(R.id.container, DealsWebViewFragment.newInstance(getArguments().getString(MainActivity.ARG_RETAILER_NAME), UrlFormatter.formatProductPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), productId)), "webView");
+                ft.replace(R.id.container, DealsWebViewFragment.newInstance(getArguments().getString(MainActivity.ARG_RETAILER_NAME),
+                        UrlFormatter.formatProductPageUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME), productId)), "webView");
                 ft.addToBackStack("productsToDealsWebView");
                 ft.commitAllowingStateLoss();
                 break;

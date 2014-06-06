@@ -107,6 +107,11 @@ public class MainActivity extends Activity
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Handle back button presses when inside the WebView in the
+     * DealsWebPageFragment to allow the user to go back in the
+     * WebView history instead of popping the back stack.
+     */
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onBackPressed() {
@@ -118,6 +123,9 @@ public class MainActivity extends Activity
         }
     }
 
+    /**
+     * Singleton
+     */
     public static Gson getGsonInstance() {
         if (sGson == null) {
             sGson = new Gson();

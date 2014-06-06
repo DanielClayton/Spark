@@ -43,7 +43,7 @@ public class AllDealsLandingFragment extends ListFragment {
         View vAllDeals = inflater.inflate(R.layout.list_fragment, container, false);
         if (vAllDeals != null) {
             TextView vTitle = (TextView) vAllDeals.findViewById(R.id.title);
-            vTitle.setText("Retailers");
+            vTitle.setText(getString(R.string.retailers));
         }
 
         return vAllDeals;

@@ -8,21 +8,21 @@
 
     <ImageView
         android:id="@+id/product_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/list_fragment_item_image"
+        android:layout_height="@dimen/list_fragment_item_image"
         android:scaleType="centerInside"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_content_margin"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/default_content_margin"
+        android:layout_marginBottom="@dimen/default_content_margin"
+        android:layout_marginRight="@dimen/default_content_margin"
         android:fontFamily="sans-serif-light"
         android:textColor="@color/blue_text"
-        android:textSize="16sp" />
+        android:textSize="@dimen/small_text" />
 
 </LinearLayout>

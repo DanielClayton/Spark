@@ -4,6 +4,13 @@ package com.spark.android.util;
  * Created by danielclayton on 6/4/14.
  */
 public class UrlFormatter {
+    /**
+     * Returns an API URL for a retailer to be used for requesting JSON
+     * data from different retailers based on the retailer name.
+     *
+     * @param retailerName name of retailer
+     * @return retailer API URL
+     */
     public static String getRetailerApiUrl(String retailerName) {
         String url = "";
 
@@ -31,47 +38,73 @@ public class UrlFormatter {
         return url;
     }
 
-    public static String getRetailerBaseUrl(String retailerName) {
-        String url = "";
+    /**
+     * Returns a base name of a retailer to be used by the WebView to
+     * determine whether or not the URL loading should be handled by
+     * the WebView or externally in a browser.
+     *
+     * @param retailerName name of retailer
+     * @return retailer base name
+     */
+    public static String getRetailerBaseName(String retailerName) {
+        String baseName = "";
 
         switch (retailerName) {
             case "Ace Hardware":
-                url = "acehardware";
+                baseName = "acehardware";
                 break;
             case "American Eagle":
-                url = "ae";
+                baseName = "ae";
                 break;
             case "Eastern Mountain Sports":
-                url = "ems";
+                baseName = "ems";
                 break;
             case "Sports Authority":
-                url = "sportsauthority";
+                baseName = "sportsauthority";
                 break;
             case "Toys \"R\" Us":
-                url = "toysrus";
+                baseName = "toysrus";
                 break;
             case "Vitacost":
-                url = "vitacost";
+                baseName = "vitacost";
+                break;
+        }
+
+        return baseName;
+    }
+
+    /**
+     * Returns a formatted URL link for a retailer to be used to
+     * present a deals page. It also handles times when the URL
+     * provided is already a properly formatted link instead
+     * of a relative href.
+     *
+     * @param retailerName name of retailer
+     * @param url link from JSON
+     * @return formatted URL link for a retailer
+     */
+    public static String formatDealsPageUrl(String retailerName, String url) {
+        if (url.contains("http") || url.contains("www.")) {
+            return url;
+        }
+
+        switch (retailerName) {
+            case "Vitacost":
+                url = "http://m.vitacost.com" + url;
                 break;
         }
 
         return url;
     }
 
-    public static String formatDealsPageUrl(String retailerName, String href) {
-        if (href.contains("http") || href.contains("www.")) {
-            return href;
-        }
-
-        switch (retailerName) {
-            case "Vitacost":
-                href = "http://m.vitacost.com" + href;
-                break;
-        }
-
-        return href;
-    }
-
+    /**
+     * Returns a formatted URL link for a retailer to be used to
+     * present a product page.
+     *
+     * @param retailerName name of retailer
+     * @param productId product ID from JSON
+     * @return formatted URL link for a retailer
+     */
     public static String formatProductPageUrl(String retailerName, String productId) {
         String url = "";
 
@@ -106,17 +139,26 @@ public class UrlFormatter {
         return url;
     }
 
-    public static String formatProductImageUrl(String retailerName, String href) {
-        if (href.contains("http") || href.contains("www.")) {
-            return href;
+    /**
+     * Returns a formatted URL link for a retailer to be used to
+     * fetch images with relative path references instead of
+     * absolute.
+     *
+     * @param retailerName name of retailer
+     * @param url link from JSON
+     * @return formatted URL link for a retailer
+     */
+    public static String formatProductImageUrl(String retailerName, String url) {
+        if (url.contains("http") || url.contains("www.")) {
+            return url;
         }
 
         switch (retailerName) {
             case "Toys \"R\" Us":
-                href = "http://m.toysrus.com" + href;
+                url = "http://m.toysrus.com" + url;
                 break;
         }
 
-        return href;
+        return url;
     }
 }

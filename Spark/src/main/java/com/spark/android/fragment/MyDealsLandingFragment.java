@@ -52,10 +52,10 @@ public class MyDealsLandingFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vAllDeals = inflater.inflate(R.layout.list_fragment, container, false);
+        View vAllDeals = inflater.inflate(R.layout.my_deals_list_fragment, container, false);
         if (vAllDeals != null) {
             TextView vTitle = (TextView) vAllDeals.findViewById(R.id.title);
-            vTitle.setText("My Retailers");
+            vTitle.setText(R.string.title_my_deals);
         }
 
         return vAllDeals;
@@ -121,7 +121,8 @@ public class MyDealsLandingFragment extends ListFragment {
                             }
 
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
-                            ft.replace(R.id.container, CategoriesFragment.newInstance(categoryPage, String.valueOf(getListAdapter().getItem(position))), "allDealsToCategories");
+                            ft.replace(R.id.container, CategoriesFragment.newInstance(categoryPage,
+                                    String.valueOf(getListAdapter().getItem(position))), "allDealsToCategories");
                             ft.addToBackStack("allDealsToCategories");
                             ft.commitAllowingStateLoss();
                         }
@@ -156,12 +157,12 @@ public class MyDealsLandingFragment extends ListFragment {
             final String[] retailers = getResources().getStringArray(R.array.retailers);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Add Retailer")
+            builder.setTitle(getString(R.string.add_retailer))
                     .setItems(retailers, new DialogInterface.OnClickListener() {
                         @SuppressWarnings("ConstantConditions")
                         public void onClick(DialogInterface dialog, int which) {
                             if (mRetailers.contains(retailers[which])) {
-                                Toast.makeText(getActivity(), retailers[which] + " is already in your list.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), retailers[which] + " " + getString(R.string.already_in_list), Toast.LENGTH_LONG).show();
                             } else {
                                 mRetailers.add(retailers[which]);
                                 Collections.sort(mRetailers);
@@ -188,8 +189,8 @@ public class MyDealsLandingFragment extends ListFragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Remove Retailer");
-        menu.add("Remove");
+        menu.setHeaderTitle(R.string.remove_retailer);
+        menu.add(R.string.remove);
     }
 
     @SuppressWarnings("ConstantConditions")
