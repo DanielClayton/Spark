@@ -71,21 +71,7 @@ public class MainActivity extends Activity
         }
     }
 
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_all_deals);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_my_deals);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_edit_my_deals);
-                break;
-        }
-    }
-
-    public void restoreActionBar() {
+    void restoreActionBar() {
         ActionBar actionBar = getActionBar();
 
         if (actionBar != null) {

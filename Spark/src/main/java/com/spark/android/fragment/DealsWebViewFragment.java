@@ -1,5 +1,6 @@
 package com.spark.android.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -32,6 +33,7 @@ public class DealsWebViewFragment extends WebViewFragment {
         return fragment;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -44,7 +46,7 @@ public class DealsWebViewFragment extends WebViewFragment {
         progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                getFragmentManager().popBackStack();
+                getActivity().onBackPressed();
             }
         });
 

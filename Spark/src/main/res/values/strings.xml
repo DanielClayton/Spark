@@ -12,5 +12,6 @@
     <string name="progress_dialog_loading_your_deal_message">Loading your deal&#8230;</string>
     <string name="progress_dialog_default_message">Loading&#8230;</string>
     <string name="progress_dialog_loading_categories_message">Loading categories&#8230;</string>
+    <string name="empty_category_message">There are no deals in this category.</string>
 
 </resources>

@@ -61,9 +61,9 @@ public class CategoriesFragment extends ListFragment {
     }
 
     private class CategoryAdapter extends ArrayAdapter<MCategory> {
-        private Context mContext;
-        private int mResource;
-        private List<MCategory> mCategories;
+        private final Context mContext;
+        private final int mResource;
+        private final List<MCategory> mCategories;
 
         public CategoryAdapter(Context context, int resource, List<MCategory> categories) {
             super(context, resource, categories);
@@ -74,11 +74,29 @@ public class CategoriesFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(mResource, parent, false);
+            ViewHolderItem viewHolderItem;
 
-            TextView vRowTitle = (TextView) convertView.findViewById(android.R.id.text1);
-            vRowTitle.setText(mCategories.get(position).getTitle());
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(mResource, parent, false);
+
+                viewHolderItem = new ViewHolderItem();
+                viewHolderItem.rowTitle = (TextView) convertView.findViewById(android.R.id.text1);
+
+                convertView.setTag(viewHolderItem);
+            } else {
+                viewHolderItem = (ViewHolderItem) convertView.getTag();
+            }
+
+            String rowTitle = null;
+            if (mCategories != null
+                    && mCategories.get(position) != null) {
+                rowTitle = mCategories.get(position).getTitle();
+            }
+
+            if (rowTitle != null) {
+                viewHolderItem.rowTitle.setText(rowTitle);
+            }
 
             return convertView;
         }
@@ -146,6 +164,10 @@ public class CategoriesFragment extends ListFragment {
                         }
                     }
                 });
+    }
+
+    static class ViewHolderItem {
+        TextView rowTitle;
     }
 
     public CategoriesFragment() {

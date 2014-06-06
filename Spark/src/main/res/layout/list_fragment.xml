@@ -14,7 +14,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="There are no deals in this category."
-        android:textSize="16sp"/>
+        android:text="@string/empty_category_message"
+        android:textSize="16sp" />
 
 </LinearLayout>

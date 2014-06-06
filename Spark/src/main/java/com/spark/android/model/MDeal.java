@@ -1,14 +1,14 @@
 package com.spark.android.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by danielclayton on 6/3/14.
  */
 public class MDeal implements Serializable {
     private String image;
-    private ArrayList<String> bullets;
+    private List<String> bullets;
     private String href;
 
     public String getImage() {
@@ -19,11 +19,11 @@ public class MDeal implements Serializable {
         this.image = image;
     }
 
-    public ArrayList<String> getBullets() {
+    public List<String> getBullets() {
         return bullets;
     }
 
-    public void setBullets(ArrayList<String> bullets) {
+    public void setBullets(List<String> bullets) {
         this.bullets = bullets;
     }
 

@@ -1,19 +1,19 @@
 package com.spark.android.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by danielclayton on 6/3/14.
  */
 public class MDealsPage implements Serializable {
-    private ArrayList<MDeal> deals;
+    private List<MDeal> deals;
 
-    public ArrayList<MDeal> getDeals() {
+    public List<MDeal> getDeals() {
         return deals;
     }
 
-    public void setDeals(ArrayList<MDeal> deals) {
+    public void setDeals(List<MDeal> deals) {
         this.deals = deals;
     }
 

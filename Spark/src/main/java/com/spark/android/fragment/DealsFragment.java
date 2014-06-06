@@ -74,9 +74,9 @@ public class DealsFragment extends ListFragment {
     }
 
     private class DealsAdapter extends ArrayAdapter<MDeal> {
-        private Context mContext;
-        private int mResource;
-        private List<MDeal> mDeals;
+        private final Context mContext;
+        private final int mResource;
+        private final List<MDeal> mDeals;
 
         public DealsAdapter(Context context, int resource, List<MDeal> deals) {
             super(context, resource, deals);
@@ -87,21 +87,36 @@ public class DealsFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(mResource, parent, false);
+            DealsViewHolderItem dealsViewHolderItem;
 
-            TextView vRowBullets = (TextView) convertView.findViewById(R.id.bullets);
-            String bullets = "";
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(mResource, parent, false);
 
-            for (int i = 0; i < mDeals.get(position).getBullets().size(); i++) {
-                if (i < mDeals.get(position).getBullets().size() - 1) {
-                    bullets += mDeals.get(position).getBullets().get(i) + "\r\n";
-                } else {
-                    bullets += mDeals.get(position).getBullets().get(i);
+                dealsViewHolderItem = new DealsViewHolderItem();
+                dealsViewHolderItem.dealBullets = (TextView) convertView.findViewById(R.id.dealBullets);
+
+                convertView.setTag(dealsViewHolderItem);
+            } else {
+                dealsViewHolderItem = (DealsViewHolderItem) convertView.getTag();
+            }
+
+            String bullets = null;
+            if (mDeals != null
+                    && mDeals.get(position) != null
+                    && mDeals.get(position).getBullets() != null) {
+                for (int i = 0; i < mDeals.get(position).getBullets().size(); i++) {
+                    if (i < mDeals.get(position).getBullets().size() - 1) {
+                        bullets += mDeals.get(position).getBullets().get(i) + "\r\n";
+                    } else {
+                        bullets += mDeals.get(position).getBullets().get(i);
+                    }
                 }
             }
 
-            vRowBullets.setText(bullets);
+            if (bullets != null) {
+                dealsViewHolderItem.dealBullets.setText(bullets);
+            }
 
             return convertView;
         }
@@ -113,9 +128,9 @@ public class DealsFragment extends ListFragment {
     }
 
     private class ProductsAdapter extends ArrayAdapter<MProduct> {
-        private Context mContext;
-        private int mResource;
-        private List<MProduct> mProducts;
+        private final Context mContext;
+        private final int mResource;
+        private final List<MProduct> mProducts;
 
         public ProductsAdapter(Context context, int resource, List<MProduct> products) {
             super(context, resource, products);
@@ -126,11 +141,28 @@ public class DealsFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(mResource, parent, false);
+            ProductsViewHolderItem productsViewHolderItem;
 
-            TextView vRowTitle = (TextView) convertView.findViewById(R.id.product_name);
-            vRowTitle.setText(mProducts.get(position).getTitle());
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(mResource, parent, false);
+
+                productsViewHolderItem = new ProductsViewHolderItem();
+                productsViewHolderItem.productName = (TextView) convertView.findViewById(R.id.product_name);
+
+                convertView.setTag(productsViewHolderItem);
+            } else {
+                productsViewHolderItem = (ProductsViewHolderItem) convertView.getTag();
+            }
+
+            String productName = null;
+            if (mProducts != null && mProducts.get(position) != null && mProducts.get(position).getTitle() != null) {
+                productName = mProducts.get(position).getTitle();
+            }
+
+            if (productName != null) {
+                productsViewHolderItem.productName.setText(productName);
+            }
 
             return convertView;
         }
@@ -143,8 +175,8 @@ public class DealsFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        String url = "";
-        String productId = "";
+        String url;
+        String productId;
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         switch (getArguments().getString(MainActivity.ARG_PAGE_TYPE)) {
@@ -161,6 +193,14 @@ public class DealsFragment extends ListFragment {
                 ft.commitAllowingStateLoss();
                 break;
         }
+    }
+
+    static class DealsViewHolderItem {
+        TextView dealBullets;
+    }
+
+    static class ProductsViewHolderItem {
+        TextView productName;
     }
 
     public DealsFragment() {
