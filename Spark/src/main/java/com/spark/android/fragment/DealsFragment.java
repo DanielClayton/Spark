@@ -53,12 +53,15 @@ public class DealsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vCategories = inflater.inflate(R.layout.list_fragment, container, false);
-        TextView vTitle = (TextView) vCategories.findViewById(R.id.title);
-        vTitle.setText("Deals");
+        if (vCategories != null) {
+            TextView vTitle = (TextView) vCategories.findViewById(R.id.title);
+            vTitle.setText("Deals");
+        }
 
         return vCategories;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -87,6 +90,7 @@ public class DealsFragment extends ListFragment {
             this.mDeals = deals;
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             DealsViewHolderItem dealsViewHolderItem;
@@ -119,7 +123,9 @@ public class DealsFragment extends ListFragment {
                 }
 
                 if (mDeals.get(position).getBullets() != null) {
-                    for (int i = 0; i < mDeals.get(position).getBullets().size(); i++) {
+                    for (int i = 0;
+                         i < mDeals.get(position).getBullets().size();
+                         i++) {
                         if (i < mDeals.get(position).getBullets().size() - 1) {
                             dealBullets += "• " + mDeals.get(position).getBullets().get(i) + "\r\n";
                         } else {
@@ -154,6 +160,7 @@ public class DealsFragment extends ListFragment {
             this.mProducts = products;
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ProductsViewHolderItem productsViewHolderItem;
@@ -205,6 +212,7 @@ public class DealsFragment extends ListFragment {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String url;

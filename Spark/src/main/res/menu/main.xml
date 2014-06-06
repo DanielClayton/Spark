@@ -5,4 +5,8 @@
         android:title="@string/action_open_in_browser"
         android:showAsAction="withText|ifRoom"
         android:visible="false" />
+    <item android:id="@+id/action_add_retailer"
+          android:icon="@drawable/action_add_retailer"
+          android:showAsAction="withText|ifRoom"
+          android:visible="false" />
 </menu>

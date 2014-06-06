@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebViewFragment;
@@ -33,12 +34,14 @@ public class DealsWebViewFragment extends WebViewFragment {
         return fragment;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
         WebView webView = getWebView();
+
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getActivity().getString(R.string.progress_dialog_loading_your_deal_message));
         progressDialog.setIndeterminate(true);
@@ -50,11 +53,16 @@ public class DealsWebViewFragment extends WebViewFragment {
             }
         });
 
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setDisplayZoomControls(false);
+        if (webView.getSettings() != null) {
+            WebSettings webSettings = webView.getSettings();
+
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setLoadWithOverviewMode(true);
+            webSettings.setUseWideViewPort(true);
+            webSettings.setBuiltInZoomControls(true);
+            webSettings.setDisplayZoomControls(false);
+        }
+
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -91,6 +99,20 @@ public class DealsWebViewFragment extends WebViewFragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        for (int i = 0;
+             i < menu.size();
+             i++) {
+            if (menu.getItem(i).getItemId() == R.id.action_open_in_browser) {
+                menu.getItem(i).setVisible(true);
+            }
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_open_in_browser) {
             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -101,16 +123,5 @@ public class DealsWebViewFragment extends WebViewFragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        for (int i = 0; i < menu.size(); i++) {
-            if (menu.getItem(i).getItemId() == R.id.action_open_in_browser) {
-                menu.getItem(i).setVisible(true);
-            }
-        }
     }
 }

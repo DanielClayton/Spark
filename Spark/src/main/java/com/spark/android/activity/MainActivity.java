@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.spark.android.R;
 import com.spark.android.fragment.AllDealsLandingFragment;
 import com.spark.android.fragment.DealsWebViewFragment;
+import com.spark.android.fragment.MyDealsLandingFragment;
 import com.spark.android.fragment.NavigationDrawerFragment;
 
 public class MainActivity extends Activity
@@ -22,6 +23,7 @@ public class MainActivity extends Activity
     public static final String ARG_RETAILER_NAME = "retailer_name";
     public static final String ARG_CATEGORIES_PAGE = "retailer_home_page";
     public static final String ARG_WEB_VIEW_URL = "web_view_url";
+    public static final String ARG_SAVED_USER_RETAILERS = "saved_user_retailers";
     private static Gson sGson = null;
 
     /**
@@ -57,10 +59,7 @@ public class MainActivity extends Activity
                 fragment = AllDealsLandingFragment.newInstance();
                 break;
             case 1:
-                fragment = AllDealsLandingFragment.newInstance();
-                break;
-            case 2:
-                fragment = AllDealsLandingFragment.newInstance();
+                fragment = MyDealsLandingFragment.newInstance();
                 break;
         }
 
@@ -108,6 +107,7 @@ public class MainActivity extends Activity
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onBackPressed() {
         if (getFragmentManager().findFragmentByTag("webView") != null

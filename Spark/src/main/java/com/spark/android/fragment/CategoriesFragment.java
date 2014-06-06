@@ -46,12 +46,15 @@ public class CategoriesFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vCategories = inflater.inflate(R.layout.list_fragment, container, false);
-        TextView vTitle = (TextView) vCategories.findViewById(R.id.title);
-        vTitle.setText("Categories");
+        if (vCategories != null) {
+            TextView vTitle = (TextView) vCategories.findViewById(R.id.title);
+            vTitle.setText("Categories");
+        }
 
         return vCategories;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -71,6 +74,7 @@ public class CategoriesFragment extends ListFragment {
             this.mCategories = categories;
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolderItem viewHolderItem;
@@ -106,6 +110,7 @@ public class CategoriesFragment extends ListFragment {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String fullUrl = UrlFormatter.getRetailerApiUrl(getArguments().getString(MainActivity.ARG_RETAILER_NAME))
