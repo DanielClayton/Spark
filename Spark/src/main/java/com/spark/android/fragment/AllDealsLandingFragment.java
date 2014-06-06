@@ -12,10 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.spark.android.R;
+import com.spark.android.activity.MainActivity;
 import com.spark.android.model.MCategoriesPage;
 import com.spark.android.model.MCategory;
 import com.spark.android.util.UrlFormatter;
@@ -74,9 +74,8 @@ public class AllDealsLandingFragment extends ListFragment {
 
                         if (jsonElement.isJsonObject()
                                 && getFragmentManager() != null) {
-                            Gson gson = new Gson();
                             JsonObject responseObject = jsonElement.getAsJsonObject();
-                            MCategoriesPage categoryPage = gson.fromJson(responseObject, MCategoriesPage.class);
+                            MCategoriesPage categoryPage = MainActivity.getGsonInstance().fromJson(responseObject, MCategoriesPage.class);
                             List<MCategory> categories = categoryPage.getCategories();
 
                             for (Iterator<MCategory> iterator = categories.listIterator(); iterator.hasNext(); ) {

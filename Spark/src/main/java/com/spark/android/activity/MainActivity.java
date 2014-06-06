@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
 import com.spark.android.R;
 import com.spark.android.fragment.AllDealsLandingFragment;
 import com.spark.android.fragment.DealsWebViewFragment;
@@ -21,6 +22,7 @@ public class MainActivity extends Activity
     public static final String ARG_RETAILER_NAME = "retailer_name";
     public static final String ARG_CATEGORIES_PAGE = "retailer_home_page";
     public static final String ARG_WEB_VIEW_URL = "web_view_url";
+    private static Gson sGson = null;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -114,5 +116,13 @@ public class MainActivity extends Activity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public static Gson getGsonInstance() {
+        if (sGson == null) {
+            sGson = new Gson();
+        }
+
+        return sGson;
     }
 }

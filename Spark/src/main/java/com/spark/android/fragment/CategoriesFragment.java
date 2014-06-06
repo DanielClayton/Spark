@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.spark.android.R;
@@ -131,24 +130,23 @@ public class CategoriesFragment extends ListFragment {
 
                         if (jsonElement.isJsonObject()
                                 && getFragmentManager() != null) {
-                            Gson gson = new Gson();
                             JsonObject responseObject = jsonElement.getAsJsonObject();
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
 
                             if (responseObject.has("categories") && responseObject.get("categories").isJsonArray()) {
-                                MCategoriesPage categoryPage = gson.fromJson(responseObject, MCategoriesPage.class);
+                                MCategoriesPage categoryPage = MainActivity.getGsonInstance().fromJson(responseObject, MCategoriesPage.class);
 
                                 ft.replace(R.id.container, CategoriesFragment.newInstance(categoryPage, getArguments().getString(MainActivity.ARG_RETAILER_NAME)), "categoriesToCategories");
                                 ft.addToBackStack("categoriesToCategories");
                                 ft.commitAllowingStateLoss();
                             } else if (responseObject.has("deals") && responseObject.get("deals").isJsonArray()) {
-                                MDealsPage dealsPage = gson.fromJson(responseObject, MDealsPage.class);
+                                MDealsPage dealsPage = MainActivity.getGsonInstance().fromJson(responseObject, MDealsPage.class);
 
                                 ft.replace(R.id.container, DealsFragment.newInstance(dealsPage, "deals", getArguments().getString(MainActivity.ARG_RETAILER_NAME)), "categoriesToDeals");
                                 ft.addToBackStack("categoriesToDeals");
                                 ft.commitAllowingStateLoss();
                             } else if (responseObject.has("products") && responseObject.get("products").isJsonArray()) {
-                                MProductsPage productsPage = gson.fromJson(responseObject, MProductsPage.class);
+                                MProductsPage productsPage = MainActivity.getGsonInstance().fromJson(responseObject, MProductsPage.class);
 
                                 ft.replace(R.id.container, DealsFragment.newInstance(productsPage, "products", getArguments().getString(MainActivity.ARG_RETAILER_NAME)), "categoriesToProducts");
                                 ft.addToBackStack("categoriesToProducts");
