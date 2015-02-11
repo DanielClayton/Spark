@@ -80,7 +80,7 @@ public class UrlFormatter {
      * of a relative href.
      *
      * @param retailerName name of retailer
-     * @param url link from JSON
+     * @param url          link from JSON
      * @return formatted URL link for a retailer
      */
     public static String formatDealsPageUrl(String retailerName, String url) {
@@ -102,7 +102,7 @@ public class UrlFormatter {
      * present a product page.
      *
      * @param retailerName name of retailer
-     * @param productId product ID from JSON
+     * @param productId    product ID from JSON
      * @return formatted URL link for a retailer
      */
     public static String formatProductPageUrl(String retailerName, String productId) {
@@ -145,7 +145,7 @@ public class UrlFormatter {
      * absolute.
      *
      * @param retailerName name of retailer
-     * @param url link from JSON
+     * @param url          link from JSON
      * @return formatted URL link for a retailer
      */
     public static String formatProductImageUrl(String retailerName, String url) {
